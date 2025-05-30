@@ -1,9 +1,15 @@
 // src/pages/Dashboard.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
+import ProfessorModal from '../components/ProfessorModal';
 import '../css/Dashboard.css';
+import ItensModal from "../components/ItensModal";
 
 const Dashboard = () => {
+    // Aqui estou declarando o Modal de cadastro de professor e falando que esta FALSO somente VERDADEIRO quando eu apertar para abrir
+    const [showProfessorModal, setShowProfessorModal] = useState (false);
+    const [showItensModal, setShowItensModal] = useState (false);
+
     return (
         <div className="dashboard">
             <Header />
@@ -13,15 +19,21 @@ const Dashboard = () => {
                 <h3 className="university">Universidade Franciscana</h3>
 
                 <section className="card-grid">
-                    <div className="card green">
+
+                    <div className="card green"
+                        onClick={() => setShowItensModal(true)}
+                        style={{ cursor : "pointer"}}
+                    >
                         <div className="card-title">Registrar Itens</div>
-                        <div className="card-count">8362 registros</div>
                         <div className="card-sub">Chaves, controles, etc</div>
                     </div>
 
-                    <div className="card teal">
+
+                    <div className="card teal"
+                         onClick={() => setShowProfessorModal(true)}
+                         style={{ cursor: "pointer" }}
+                    >
                         <div className="card-title">Registrar Professores</div>
-                        <div className="card-count">12 registros</div>
                         <div className="card-sub">Usuários RFID</div>
                     </div>
 
@@ -76,6 +88,16 @@ const Dashboard = () => {
                         </ul>
                     </div>
                 </section>
+
+                {/* MODALS !! */}
+                <ProfessorModal
+                    isOpen={showProfessorModal}
+                    onClose={() => setShowProfessorModal(false)}
+                />
+                <ItensModal
+                    isOpen={showItensModal}
+                    onClose={() => setShowItensModal(false)}
+                />
             </main>
         </div>
     );
