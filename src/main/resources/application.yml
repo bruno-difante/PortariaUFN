@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://portariaufn:admin@portariaufn.gcgzb0g.mongodb.net/
+      database: portaria
