@@ -33,7 +33,7 @@ O projeto tem como objetivo facilitar a rotina do porteiro da faculdade, permiti
 - [x] MongoDB conectado com sucesso
 - [x] Repositório Git organizado com branch `main` limpa
 - [x] Front-end criado (pasta `frontend/`)
-
+- [x] Deploy do projeto (back e front)
 ---
 
 ## 🔧 Funcionalidades pendentes
@@ -41,7 +41,10 @@ O projeto tem como objetivo facilitar a rotina do porteiro da faculdade, permiti
 - [ ] Interface React: tela para bipar crachá + selecionar itens e localização
 - [ ] Tela do porteiro com confirmação visual de quem pegou o quê e onde está
 - [ ] Tela administrativa para visualizar histórico e status de empréstimos
-- [ ] Deploy do projeto (back e front)
+- [ ] Fazer Visualização estoque
+- [ ] Fazer o Front Bonito
+- [ ] Sistema de Emprestimo completo
+
 
 ---
 
