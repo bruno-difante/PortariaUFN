@@ -34,6 +34,9 @@ O projeto tem como objetivo facilitar a rotina do porteiro da faculdade, permiti
 - [x] Repositório Git organizado com branch `main` limpa
 - [x] Front-end criado (pasta `frontend/`)
 - [x] Deploy do projeto (back e front)
+- [x] Fazer Visualização estoque
+- [x] Fazer Visualização de funcionarios
+- [x] Criação de itens e funcionarios
 ---
 
 ## 🔧 Funcionalidades pendentes
@@ -41,11 +44,9 @@ O projeto tem como objetivo facilitar a rotina do porteiro da faculdade, permiti
 - [ ] Interface React: tela para bipar crachá + selecionar itens e localização
 - [ ] Tela do porteiro com confirmação visual de quem pegou o quê e onde está
 - [ ] Tela administrativa para visualizar histórico e status de empréstimos
-- [ ] Fazer Visualização estoque
 - [ ] Fazer o Front Bonito
 - [ ] Sistema de Emprestimo completo
-
-
+- [ ] Atualização das listas
 ---
 
 ## 👨‍💻 Desenvolvedores
