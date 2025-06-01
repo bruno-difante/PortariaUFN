@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import "../css/ProfessorModal.css";
 
 // Declaramos esse JS como um modal, e o isOpen garante que ele esteja aberto
@@ -19,7 +20,7 @@ const ItensModal = ({ isOpen, onClose}) => {
         const tipos = { nome, tipo, descricao, quantidadeTotal, quantidadeAtual, ativo };
 
         try {
-            const response = await fetch('http://localhost:8080/itens', {
+            const response = await fetch('http://192.168.100.109:8080/itens', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

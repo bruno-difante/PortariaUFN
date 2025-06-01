@@ -1,0 +1,59 @@
+.logo-container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../imagens/imagemfundo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9999;
+}
+
+.logo-wrapper {
+    position: relative;
+    width: 300px;
+    height: 350px;
+    transform: translateY(-10%);
+}
+
+@media (max-width: 768px) {
+    .logo-wrapper {
+        transform: translateY(-50%);
+    }
+}
+
+.logo-piece {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.letreiro {
+    position: absolute;
+    top: 95%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 260px;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.logo-footer {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.5px;
+}

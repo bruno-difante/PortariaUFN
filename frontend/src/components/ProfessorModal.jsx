@@ -15,7 +15,7 @@ const ProfessorModal = ({ isOpen, onClose}) => {
 
         //Conecção com o Java Spring, dentro da requisição do /usuarios
         try{
-         const response = await fetch ("http://localhost:8080/usuarios", {
+         const response = await fetch ("http://192.168.100.109:8080/usuarios", {
              method: "POST", // Post pois estamos fazendo um requerimento ao banco de POSTAR algo ok?
              headers: { "Content-Type" : "application/json"},
              body: JSON.stringify(professor)
@@ -38,7 +38,9 @@ const ProfessorModal = ({ isOpen, onClose}) => {
         return(
             <div className="modal-overlay">
                 <div className="modal-box">
-                    <h2>Cadastro de Professores</h2>
+                    <h2>
+                        Cadastro de Professores
+                    </h2>
                     <form onSubmit={handleSubmit}>
                         <input
                             type="text"

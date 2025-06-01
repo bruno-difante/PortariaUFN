@@ -4,11 +4,18 @@ import Header from '../components/Header';
 import ProfessorModal from '../components/ProfessorModal';
 import '../css/Dashboard.css';
 import ItensModal from "../components/ItensModal";
+import EstoqueModal from "../components/EstoqueModal";
+import ProfessoresCadModal from "../components/ProfessoresCadModal";
+import EmprestimoModal from "../components/EmprestimoModal";
+
 
 const Dashboard = () => {
     // Aqui estou declarando o Modal de cadastro de professor e falando que esta FALSO somente VERDADEIRO quando eu apertar para abrir
     const [showProfessorModal, setShowProfessorModal] = useState (false);
     const [showItensModal, setShowItensModal] = useState (false);
+    const [showEstoqueModal, setShowEstoqueModal] = useState (false);
+    const [showProfessoresCadModal, setShowProfessoresCadModal] = useState(false);
+    const [showEmprestimoModal, setShowEmprestimoModal] = useState(false);
 
     return (
         <div className="dashboard">
@@ -19,7 +26,7 @@ const Dashboard = () => {
                 <h3 className="university">Universidade Franciscana</h3>
 
                 <section className="card-grid">
-
+                    {/* Card de Registro */}
                     <div className="card green"
                         onClick={() => setShowItensModal(true)}
                         style={{ cursor : "pointer"}}
@@ -28,7 +35,7 @@ const Dashboard = () => {
                         <div className="card-sub">Chaves, controles, etc</div>
                     </div>
 
-
+                    {/* Card de Registro de Professor*/}
                     <div className="card teal"
                          onClick={() => setShowProfessorModal(true)}
                          style={{ cursor: "pointer" }}
@@ -37,21 +44,30 @@ const Dashboard = () => {
                         <div className="card-sub">Usuários RFID</div>
                     </div>
 
-                    <div className="card yellow">
-                        <div className="card-title">Registrar Sala</div>
-                        <div className="card-count">427 registros</div>
+                    {/* Card de Estoque */}
+                    <div className="card yellow"
+                         onClick={() => setShowEstoqueModal(true)}
+                         style={{ cursor: "pointer" }}
+                    >
+                        <div className="card-title">Estoque de Itens</div>
                         <div className="card-sub">Prédio e Sala</div>
                     </div>
 
-                    <div className="card olive">
-                        <div className="card-title">Registrar Sala e Item</div>
-                        <div className="card-count">28 registros</div>
+                    {/* Card de Professores Cadastrados */}
+                    <div className="card olive"
+                        onClick={() => setShowProfessoresCadModal(true)}
+                        style={{ cursor: "pointer"}}
+                    >
+                        <div className="card-title">Funcionarios Cadastrados</div>
                         <div className="card-sub">Atribuições diretas</div>
                     </div>
 
-                    <div className="card dark">
-                        <div className="card-title">Ver estoque completo</div>
-                        <div className="card-count">28 itens</div>
+                    {/* Card de Emprestimo */}
+                    <div className="card dark"
+                        onClick={() => setShowEmprestimoModal}
+                         style={{ cursor: "pointer"}}
+                    >
+                        <div className="card-title">Emprestimo</div>
                         <div className="card-sub">Todos disponíveis</div>
                     </div>
 
@@ -97,6 +113,18 @@ const Dashboard = () => {
                 <ItensModal
                     isOpen={showItensModal}
                     onClose={() => setShowItensModal(false)}
+                />
+                <EstoqueModal
+                    isOpen={showEstoqueModal}
+                    onClose={() => setShowEstoqueModal(false)}
+                />
+                <ProfessoresCadModal
+                    isOpen={showProfessoresCadModal}
+                    onClose={() => setShowProfessoresCadModal(false)}
+                />
+                <EmprestimoModal
+                    isOpen={showEmprestimoModal}
+                    onClose={() => setShowEmprestimoModal(false)}
                 />
             </main>
         </div>
