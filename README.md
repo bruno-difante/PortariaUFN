@@ -37,16 +37,14 @@ O projeto tem como objetivo facilitar a rotina do porteiro da faculdade, permiti
 - [x] Fazer Visualização estoque
 - [x] Fazer Visualização de funcionarios
 - [x] Criação de itens e funcionarios
+- [x] Sistema de Emprestimo completo
+- [x] Atualização das listas
 ---
 
 ## 🔧 Funcionalidades pendentes
 
-- [ ] Interface React: tela para bipar crachá + selecionar itens e localização
-- [ ] Tela do porteiro com confirmação visual de quem pegou o quê e onde está
-- [ ] Tela administrativa para visualizar histórico e status de empréstimos
 - [ ] Fazer o Front Bonito
-- [ ] Sistema de Emprestimo completo
-- [ ] Atualização das listas
+
 ---
 
 ## 👨‍💻 Desenvolvedores
