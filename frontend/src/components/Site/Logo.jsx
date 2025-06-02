@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import "../css/Logo.css";
+import "../../css/Logo.css";
 
-import part2 from "../imagens/part2.png";
-import part3 from "../imagens/part3.png";
-import part5 from "../imagens/part5.png";
-import part6 from "../imagens/part6.png";
-import part7 from "../imagens/part7.png";
-import nomeufn from "../imagens/nomeufn.png";
+import part2 from "../../imagens/part2.png";
+import part3 from "../../imagens/part3.png";
+import part5 from "../../imagens/part5.png";
+import part6 from "../../imagens/part6.png";
+import part7 from "../../imagens/part7.png";
+import nomeufn from "../../imagens/nomeufn.png";
 
 // Declaração das imagens e com top = Altura, left = Lado, rotate = curvatura
 const partsData = [

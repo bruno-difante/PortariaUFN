@@ -9,9 +9,11 @@
 
 .modal-box {
     background: white;
-    padding: 2rem;
     border-radius: 10px;
     width: 400px;
+    max-height: 90vh;          /* Limita a altura para caber na tela */
+    overflow-y: auto;          /* Permite rolagem vertical */
+    padding-right: 10px;       /* Evita que a rolagem fique em cima do conteúdo */
 }
 
 .modal-box h2 {

@@ -15,16 +15,20 @@ public class Item {
     private String descricao;
     private int quantidadeTotal;
     private int quantidadeAtual;
+    private String sala;
+    private String predio;
     private boolean ativo;
 
     private Item() {}
 
-    private Item(String id, String tipo, String descricao, int quantidadeTotal, int quantidadeAtual, boolean ativo) {
+    private Item(String id, String tipo, String descricao, int quantidadeTotal, int quantidadeAtual, String sala, String predio, boolean ativo) {
         this.tipo = tipo;
         this.descricao = descricao;
         this.quantidadeTotal = quantidadeTotal;
         this.quantidadeAtual = quantidadeAtual;
         this.ativo = ativo;
+        this.sala = sala;
+        this.predio = predio;
     }
 
     public String getId() {
@@ -83,6 +87,22 @@ public class Item {
         this.ativo = ativo;
     }
 
+    public String getPredio() {
+        return predio;
+    }
+
+    public void setPredio(String predio) {
+        this.predio = predio;
+    }
+
+    public String getSala() {
+        return sala;
+    }
+
+    public void setSala(String sala) {
+        this.sala = sala;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
@@ -92,6 +112,8 @@ public class Item {
                 ", descricao='" + descricao + '\'' +
                 ", quantidadeTotal=" + quantidadeTotal +
                 ", quantidadeAtual=" + quantidadeAtual +
+                ", sala='" + sala + '\'' +
+                ", predio='" + predio + '\'' +
                 ", ativo=" + ativo +
                 '}';
     }

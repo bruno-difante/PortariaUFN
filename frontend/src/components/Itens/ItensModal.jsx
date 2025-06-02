@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import "../css/ProfessorModal.css";
+import "../../css/ProfessorModal.css";
 
 // Declaramos esse JS como um modal, e o isOpen garante que ele esteja aberto
 const ItensModal = ({ isOpen, onClose}) => {
@@ -12,12 +12,24 @@ const ItensModal = ({ isOpen, onClose}) => {
     const [quantidadeTotal, setQuantidadeTotal] = useState ("");
     const [quantidadeAtual, setQuantidadeAtual] = useState ("");
     const [ativo, setAtivo] = useState (true); // É um boolean
+    const [sala, setSala] = useState("");
+    const [predio, setPredio] = useState("");
 
     //Objeto
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const tipos = { nome, tipo, descricao, quantidadeTotal, quantidadeAtual, ativo };
+        const item = {
+            nome,
+            tipo,
+            descricao,
+            quantidadeTotal: parseInt(quantidadeTotal),
+            quantidadeAtual: parseInt(quantidadeAtual),
+            sala,
+            predio,
+            ativo
+        };
+
 
         try {
             const response = await fetch('http://192.168.100.109:8080/itens', {
@@ -25,7 +37,7 @@ const ItensModal = ({ isOpen, onClose}) => {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(tipos)
+                body: JSON.stringify(item)
             });
 
             if (response.ok) {
@@ -80,8 +92,22 @@ const ItensModal = ({ isOpen, onClose}) => {
                     <input
                         type="text"
                         placeholder="quantidadeAtual"
-                        value={quantidadeTotal}
+                        value={quantidadeAtual}
                         onChange={(e) => setQuantidadeAtual(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="text"
+                        placeholder="Sala"
+                        value={sala}
+                        onChange={(e) => setSala(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="text"
+                        placeholder="Predio"
+                        value={predio}
+                        onChange={(e) => setPredio(e.target.value)}
                         required
                     />
 

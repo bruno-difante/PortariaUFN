@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "../css/ProfessorModal.css";
+import "../../css/ProfessorModal.css";
 
 const ProfessorModal = ({ isOpen, onClose}) => {
     // Criamos as variaveis IGUAIS as do Java Spring, aqui usamos ela "temporariamente" para encaminhar ao banco

@@ -56,12 +56,29 @@ public class ItemController {
            item.setDescricao(itemAtualizado.getDescricao());
            item.setQuantidadeTotal(itemAtualizado.getQuantidadeTotal());
            item.setQuantidadeAtual(itemAtualizado.getQuantidadeAtual());
+           item.setSala(itemAtualizado.getSala());
+           item.setPredio(itemAtualizado.getPredio());
            item.setAtivo(itemAtualizado.isAtivo());
            return itemRepository.save(item);
         }).orElseGet(() -> {
             itemAtualizado.setId(id);
             return itemRepository.save(itemAtualizado);
         });
+    }
+    @PutMapping("/{id}/decrementar")
+    public Item decrementarEstoque(@PathVariable String id) {
+        Optional<Item> optionalItem = itemRepository.findById(id);
+        if (optionalItem.isPresent()) {
+            Item item = optionalItem.get();
+            if (item.getQuantidadeAtual() > 0) {
+                item.setQuantidadeAtual(item.getQuantidadeAtual() - 1);
+                return itemRepository.save(item);
+            } else {
+                throw new RuntimeException("Quantidade atual é zero.");
+            }
+        } else {
+            throw new RuntimeException("Item não encontrado.");
+        }
     }
 
     @DeleteMapping("/{id}") // Delete do item

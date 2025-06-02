@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../components/Logo";
+import Logo from "../components/Site/Logo";
 
 const LogoPage = () => {
     const navigate = useNavigate();

@@ -1,13 +1,14 @@
 // src/pages/Dashboard.jsx
 import React, { useState } from 'react';
-import Header from '../components/Header';
-import ProfessorModal from '../components/ProfessorModal';
+import Header from '../components/Site/Header';
+import ProfessorModal from '../components/Funcionario/ProfessorModal';
 import '../css/Dashboard.css';
-import ItensModal from "../components/ItensModal";
-import EstoqueModal from "../components/EstoqueModal";
-import ProfessoresCadModal from "../components/ProfessoresCadModal";
-import EmprestimoModal from "../components/EmprestimoModal";
-
+import ItensModal from "../components/Itens/ItensModal";
+import EstoqueModal from "../components/Itens/EstoqueModal";
+import ProfessoresCadModal from "../components/Funcionario/ProfessoresCadModal";
+import EmprestimoModal from "../components/Emprestimo/EmprestimoModal";
+import HistoricoEmprestimos from "../components/Emprestimo/HistoricoEmprestimos";
+import ResumoEmprestimos from "../components/Emprestimo/ResumoEmprestimos";
 
 const Dashboard = () => {
     // Aqui estou declarando o Modal de cadastro de professor e falando que esta FALSO somente VERDADEIRO quando eu apertar para abrir
@@ -16,7 +17,7 @@ const Dashboard = () => {
     const [showEstoqueModal, setShowEstoqueModal] = useState (false);
     const [showProfessoresCadModal, setShowProfessoresCadModal] = useState(false);
     const [showEmprestimoModal, setShowEmprestimoModal] = useState(false);
-
+    const [ShowHistoricoEmprestimo, setShowHistoricoEmprestimo] = useState(false);
     return (
         <div className="dashboard">
             <Header />
@@ -64,46 +65,24 @@ const Dashboard = () => {
 
                     {/* Card de Emprestimo */}
                     <div className="card dark"
-                        onClick={() => setShowEmprestimoModal}
+                        onClick={() => setShowEmprestimoModal(true)}
                          style={{ cursor: "pointer"}}
                     >
                         <div className="card-title">Emprestimo</div>
                         <div className="card-sub">Todos disponíveis</div>
                     </div>
 
-                    <div className="card blue">
-                        <div className="card-title">Adicionar Prédio e Sala</div>
-                        <div className="card-count">125 registros</div>
+                    {/* Card de Historico de Emprestimos*/}
+                    <div className="card blue"
+                         onClick={() => setShowHistoricoEmprestimo(true)}
+                         style={{ cursor: "pointer"}}
+                    >
+                        <div className="card-title">Historico de Emprestimos</div>
                         <div className="card-sub">Gerenciamento de locais</div>
                     </div>
                 </section>
 
-                <section className="info-columns">
-                    <div className="column">
-                        <h4>Professores Ativos</h4>
-                        <ul>
-                            <li>João Silva</li>
-                            <li>Maria Costa</li>
-                            <li>Ana Lima</li>
-                        </ul>
-                    </div>
-
-                    <div className="column">
-                        <h4>Itens Emprestados</h4>
-                        <ul>
-                            <li>Chave Lab 1 - João</li>
-                            <li>Controle Ar - Maria</li>
-                        </ul>
-                    </div>
-
-                    <div className="column">
-                        <h4>Itens Disponíveis</h4>
-                        <ul>
-                            <li>Chave Auditório</li>
-                            <li>HDMI reserva</li>
-                        </ul>
-                    </div>
-                </section>
+                <ResumoEmprestimos />
 
                 {/* MODALS !! */}
                 <ProfessorModal
@@ -125,6 +104,10 @@ const Dashboard = () => {
                 <EmprestimoModal
                     isOpen={showEmprestimoModal}
                     onClose={() => setShowEmprestimoModal(false)}
+                />
+                <HistoricoEmprestimos
+                    isOpen={ShowHistoricoEmprestimo}
+                    onClose={() => setShowHistoricoEmprestimo(false)}
                 />
             </main>
         </div>
