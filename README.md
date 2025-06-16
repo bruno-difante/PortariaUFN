@@ -52,7 +52,7 @@ O projeto tem como objetivo facilitar a rotina do porteiro da faculdade, permiti
 **Nome:** Iago Vargas  
 **Nome:** Bruno Difante
 **Nome:** Gabriel Teixeira Maier
-**Nome:** Vicenzo
+**Nome:** Vicenzo de Souza
 **Curso:** Ciência da Computação - Universidade Franciscana (UFN)  
 **Semestre:** 5º  
 **GitHub:** [@Iago-Vargas](https://github.com/Iago-Vargas)
