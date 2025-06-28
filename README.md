@@ -24,11 +24,11 @@ O projeto tem como objetivo facilitar a rotina do porteiro da faculdade, permiti
 
 ---
 
-## ✅ Funcionalidades já implementadas
+## ✅ Funcionalidades
 
-- [x] Cadastro de **Usuário** (professor) com identificação por RFID
-- [x] Cadastro de **Item** genérico para empréstimo (ex: chave, controle, etc.)
-- [x] Cadastro de **Localização** (Prédio + Sala) de onde o professor estará
+- [x] Cadastro de **Funcionários** com identificação por RFID
+- [x] Cadastro de **Itens** para empréstimo (ex: chave, controle, etc.)
+- [x] Cadastro de **Localização** (Prédio + Sala) de onde o item estará
 - [x] API REST funcional com testes via **Postman**
 - [x] MongoDB conectado com sucesso
 - [x] Repositório Git organizado com branch `main` limpa
@@ -39,12 +39,6 @@ O projeto tem como objetivo facilitar a rotina do porteiro da faculdade, permiti
 - [x] Criação de itens e funcionarios
 - [x] Sistema de Emprestimo completo
 - [x] Atualização das listas
----
-
-## 🔧 Funcionalidades pendentes
-
-- [ ] Fazer o Front Bonito
-
 ---
 
 ## 👨‍💻 Desenvolvedores
