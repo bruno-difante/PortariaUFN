@@ -1,9 +1,12 @@
 import React, { useState} from "react";
+import Alerta from "../Site/Alerta";
 import "../../css/ProfessorModal.css";
+
 import SelecionarItemModal from "../Itens/SelecionarItemModal";
 import ConfirmacaoModal from "./ConfirmacaoModal";
 const EmprestimoModal = ({isOpen, onClose}) => {
     const [rfid, setRfid] = useState("");
+    const [mensagemAlerta, setMensagemAlerta] = useState("");
     const [usuario, setUsuario] = useState(null);
     const [erro, setErro] = useState("");
     const [showSelecionarItemModal, setShowSelecionarItemModal] = useState(false);
@@ -14,7 +17,7 @@ const EmprestimoModal = ({isOpen, onClose}) => {
     const handleRfidKeyDown = async (e) => {
         if (e.key === "Enter"){
             try {
-                const response = await fetch (`http://192.168.100.109:8080/usuarios/rfid/${rfid}`);
+                const response = await fetch (`http://192.168.100.97:8080/usuarios/rfid/${rfid}`);
                 if (response.ok){
                     const data = await response.json();
                     setUsuario(data);

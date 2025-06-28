@@ -1,46 +1,52 @@
-import React, {useState} from "react";
+
+import React, { useState } from "react";
+import Alerta from "../Site/Alerta";
 import "../../css/ProfessorModal.css";
 
-const ProfessorModal = ({ isOpen, onClose}) => {
-    // Criamos as variaveis IGUAIS as do Java Spring, aqui usamos ela "temporariamente" para encaminhar ao banco
-    // Parecido com o que faziamos com Java Swing
+const ProfessorModal = ({ isOpen, onClose }) => {
     const [nome, setNome] = useState("");
     const [rfid, setRfid] = useState("");
     const [tipo, setTipo] = useState("professor");
+    const [mensagemAlerta, setMensagemAlerta] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Construtor
-        const professor = { nome, rfid, tipo};
+        try {
+            // Envia para o back-end
+            const response = await fetch("http://192.168.100.97:8080/usuarios", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nome, rfid, tipo })
+            });
 
-        //Conecção com o Java Spring, dentro da requisição do /usuarios
-        try{
-         const response = await fetch ("http://192.168.100.109:8080/usuarios", {
-             method: "POST", // Post pois estamos fazendo um requerimento ao banco de POSTAR algo ok?
-             headers: { "Content-Type" : "application/json"},
-             body: JSON.stringify(professor)
-             });
             if (response.ok) {
-                alert('Professor cadastrado com sucesso!');
-                onClose();
+                setMensagemAlerta("Funcionário cadastrado com sucesso!");
             } else {
-                alert('Erro ao cadastrar professor.');
+                setMensagemAlerta("Erro ao cadastrar funcionário.");
             }
         } catch (error) {
-            console.error(error);
-            alert('Erro na requisição.');
+            console.error("Erro:", error);
+            setMensagemAlerta("Erro ao conectar com o servidor.");
         }
-        };
-        if (!isOpen) return null;
+    };
 
-        //Aqui começamos o nosso React ali encima era somente o requerimento ao Banco e ao Java Spring
+    if (!isOpen) return null;
 
-        return(
+    return (
+        <>
+            {mensagemAlerta && (
+                <Alerta
+                    mensagem={mensagemAlerta}
+                    onClose={() => {
+                        setMensagemAlerta("");
+                        onClose(); // Fecha o modal após confirmação
+                    }}
+                />
+            )}
+
             <div className="modal-overlay">
                 <div className="modal-box">
-                    <h2>
-                        Cadastro de Professores
-                    </h2>
+                    <h2>Cadastro de Funcionários</h2>
                     <form onSubmit={handleSubmit}>
                         <input
                             type="text"
@@ -68,7 +74,8 @@ const ProfessorModal = ({ isOpen, onClose}) => {
                     </form>
                 </div>
             </div>
-
-        );
+        </>
+    );
 };
+
 export default ProfessorModal;

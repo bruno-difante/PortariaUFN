@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import Alerta from "../Site/Alerta";
 import { FaTrash } from "react-icons/fa";
 import "../../css/ProfessorModal.css";
 
 const ProfessoresCadModal = ({ isOpen, onClose }) => {
     const [atribuicoes, setAtribuicoes] = useState([]);
+    const [mensagemAlerta, setMensagemAlerta] = useState("");
     const [showCheckboxes, setShowCheckboxes] = useState(false);
     const [selecionados, setSelecionados] = useState([]);
     const [filtro, setFiltro] = useState(""); // <- NOVO: estado do filtro
@@ -11,7 +13,7 @@ const ProfessoresCadModal = ({ isOpen, onClose }) => {
     // Comando para carregar do back os professores
     useEffect(() => {
         if (isOpen) {
-            fetch("http://192.168.100.109:8080/usuarios")
+            fetch("http://192.168.100.97:8080/usuarios")
                 .then(res => res.json())
                 .then(data => setAtribuicoes(data))
                 .catch(err => {
@@ -24,13 +26,13 @@ const ProfessoresCadModal = ({ isOpen, onClose }) => {
     // Função para Deletarmos o Funcionario da Lista
     const deletarSelecionados = async () => {
         for (const id of selecionados) {
-            await fetch(`http://192.168.100.109:8080/usuarios/${id}`, {
+            await fetch(`http://192.168.100.97:8080/usuarios/${id}`, {
                 method: "DELETE",
             });
         }
 
         // Agora vamos atualizar a lista
-        const novaLista = await fetch("http://192.168.100.109:8080/usuarios").then(r => r.json());
+        const novaLista = await fetch("http://192.168.100.97:8080/usuarios").then(r => r.json());
         setAtribuicoes(novaLista);
         setSelecionados([]);
         setShowCheckboxes(false);

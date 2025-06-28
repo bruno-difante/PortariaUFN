@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import Alerta from "../Site/Alerta";
 import "../../css/ProfessorModal.css";
 
-
-
 const ConfirmacaoModal = ({ isOpen, onClose, usuario, itemSelecionado }) => {
+    const [mensagemAlerta, setMensagemAlerta] = useState("");
+
     if (!isOpen || !usuario || !itemSelecionado) return null;
 
     const onConfirmar = async () => {
         try {
-            // Envia o empréstimo
-            await fetch("http://192.168.100.109:8080/emprestimos", {
+            await fetch("http://192.168.100.97:8080/emprestimos", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -18,36 +18,41 @@ const ConfirmacaoModal = ({ isOpen, onClose, usuario, itemSelecionado }) => {
                 })
             });
 
-            // Decrementa o estoque
-            await fetch(`http://192.168.100.109:8080/itens/${itemSelecionado.id}/decrementar`, {
+            await fetch(`http://192.168.100.97:8080/itens/${itemSelecionado.id}/decrementar`, {
                 method: "PUT"
             });
 
-            alert("Empréstimo realizado com sucesso!");
-            onClose();
+            setMensagemAlerta("Empréstimo realizado com sucesso!");
+
         } catch (error) {
             console.error("Erro ao registrar empréstimo:", error);
-            alert("Erro ao registrar empréstimo.");
+            setMensagemAlerta("Erro ao registrar empréstimo.");
         }
     };
 
-    return(
-      <div className="modal-overlay">
-          <div className="modal-box">
-              <h2>Confirmar Empréstimo</h2>
-              <p><strong>Funcionario:</strong>{usuario.nome}</p>
-              <p><strong>Matrícula:</strong>{usuario.rfid}</p>
-              <p><strong>Produto:</strong>{itemSelecionado.nome}</p>
-              <p><strong>Sala:</strong> {itemSelecionado.sala}</p>
-              <p><strong>Prédio:</strong> {itemSelecionado.predio}</p>
+    return (
+        <>
+            <div className="modal-overlay">
+                <div className="modal-box">
+                    <h2>Confirmar Empréstimo</h2>
+                    <p><strong>Funcionário:</strong> {usuario.nome}</p>
+                    <p><strong>Matrícula:</strong> {usuario.rfid}</p>
+                    <p><strong>Produto:</strong> {itemSelecionado.nome}</p>
+                    <p><strong>Sala:</strong> {itemSelecionado.sala}</p>
+                    <p><strong>Prédio:</strong> {itemSelecionado.predio}</p>
 
+                    <div className="modal-buttons">
+                        <button onClick={onConfirmar}>Confirmar</button>
+                        <button onClick={onClose}>Cancelar</button>
+                    </div>
+                </div>
+            </div>
 
-              <div className="modal-buttons">
-                  <button onClick={onConfirmar}>Confirmar</button>
-                  <button onClick={onClose}>Cancelar</button>
-              </div>
-          </div>
-      </div>
+            {/* Alerta */}
+            {mensagemAlerta && (
+                <Alerta mensagem={mensagemAlerta} onClose={() => setMensagemAlerta("")} />
+            )}
+        </>
     );
 };
 

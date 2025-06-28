@@ -6,16 +6,16 @@ const ResumoEmprestimos = () => {
 
     const fetchDados = async () => {
         try {
-            const resEmp = await fetch("http://192.168.100.109:8080/emprestimos/abertos");
+            const resEmp = await fetch("http://192.168.100.97:8080/emprestimos/abertos");
             const emprestimos = await resEmp.json();
 
             const detalhes = await Promise.all(
                 emprestimos.map(async (emp) => {
                     try {
-                        const profRes = await fetch(`http://192.168.100.109:8080/usuarios/${emp.professorId}`);
+                        const profRes = await fetch(`http://192.168.100.97:8080/usuarios/${emp.professorId}`);
                         const prof = await profRes.json();
 
-                        const itemRes = await fetch(`http://192.168.100.109:8080/itens/${emp.itensIds[0]}`);
+                        const itemRes = await fetch(`http://192.168.100.97:8080/itens/${emp.itensIds[0]}`);
                         const item = await itemRes.json();
 
                         return {
@@ -40,7 +40,7 @@ const ResumoEmprestimos = () => {
         }
 
         try {
-            const resDisp = await fetch("http://192.168.100.109:8080/itens");
+            const resDisp = await fetch("http://192.168.100.97:8080/itens");
             const itens = await resDisp.json();
             const filtrados = itens.filter(i => i.ativo && i.quantidadeAtual > 0).slice(0, 10);
             setDisponiveis(filtrados);

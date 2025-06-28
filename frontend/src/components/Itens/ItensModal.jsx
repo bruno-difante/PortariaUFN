@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Alerta from "../Site/Alerta";
 
 import "../../css/ProfessorModal.css";
 
@@ -7,6 +8,7 @@ const ItensModal = ({ isOpen, onClose}) => {
 
     // Declaramos as variaveis ok amigos??
     const [nome, setNome] = useState ("");
+    const [mensagemAlerta, setMensagemAlerta] = useState("");
     const [tipo, setTipo] = useState ("");
     const [descricao, setDescricao] = useState ("");
     const [quantidadeTotal, setQuantidadeTotal] = useState ("");
@@ -32,7 +34,7 @@ const ItensModal = ({ isOpen, onClose}) => {
 
 
         try {
-            const response = await fetch('http://192.168.100.109:8080/itens', {
+            const response = await fetch('http://192.168.100.97:8080/itens', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

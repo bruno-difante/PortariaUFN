@@ -29,16 +29,16 @@ const HistoricoEmprestimos = ({ isOpen, onClose }) => {
 
     const fetchDados = async () => {
         try {
-            const res = await fetch("http://192.168.100.109:8080/emprestimos");
+            const res = await fetch("http://192.168.100.97:8080/emprestimos");
             const lista = await res.json();
 
             const detalhados = await Promise.all(
                 lista.map(async (emp) => {
                     try {
-                        const professorRes = await fetch(`http://192.168.100.109:8080/usuarios/${emp.professorId}`);
+                        const professorRes = await fetch(`http://192.168.100.97:8080/usuarios/${emp.professorId}`);
                         const professor = await professorRes.json();
 
-                        const itemRes = await fetch(`http://192.168.100.109:8080/itens/${emp.itensIds[0]}`);
+                        const itemRes = await fetch(`http://192.168.100.97:8080/itens/${emp.itensIds[0]}`);
                         const item = await itemRes.json();
 
                         return {
@@ -82,7 +82,8 @@ const HistoricoEmprestimos = ({ isOpen, onClose }) => {
     const finalizarSelecionados = async () => {
         for (const id of selecionados) {
             try {
-                await fetch(`http://192.168.100.109:8080/emprestimos/devolver/${id}`, { method: "PUT" });
+                await fetch(`http://192.168.100.97:8080/emprestimos/devolver/${id}`, { method: "PUT" });
+                await fetch(`http://192.168.100.97:8080/emprestimos/devolver/${id}`, { method: "PUT" });
             } catch (err) {
                 console.error(`Erro ao devolver empréstimo ${id}`, err);
             }

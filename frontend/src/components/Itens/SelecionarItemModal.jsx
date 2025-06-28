@@ -7,7 +7,7 @@ const SelecionarItemModal = ({ isOpen, onClose, onItemSelecionado }) => {
 
     useEffect(() => {
         if (isOpen) {
-            fetch("http://192.168.100.109:8080/itens")
+            fetch("http://192.168.100.97:8080/itens")
                 .then(res => res.json())
                 .then(data => {
                     const ativos = data.filter(item => item.ativo === true);
