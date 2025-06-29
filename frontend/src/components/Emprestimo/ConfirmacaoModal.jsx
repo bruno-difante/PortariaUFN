@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import Alerta from "../Site/Alerta";
+import { useNavigate } from "react-router-dom";
 import "../../css/ProfessorModal.css";
 
 const ConfirmacaoModal = ({ isOpen, onClose, usuario, itemSelecionado }) => {
     const [mensagemAlerta, setMensagemAlerta] = useState("");
+    const navigate = useNavigate();
 
     if (!isOpen || !usuario || !itemSelecionado) return null;
 
@@ -30,6 +32,12 @@ const ConfirmacaoModal = ({ isOpen, onClose, usuario, itemSelecionado }) => {
         }
     };
 
+    const handleFecharAlerta = () => {
+        setMensagemAlerta("");
+        onClose(); // Fecha o modal
+        navigate("/dashboard"); // Redireciona
+    };
+
     return (
         <>
             <div className="modal-overlay">
@@ -48,9 +56,12 @@ const ConfirmacaoModal = ({ isOpen, onClose, usuario, itemSelecionado }) => {
                 </div>
             </div>
 
-            {/* Alerta */}
+            {/* Alerta com redirecionamento */}
             {mensagemAlerta && (
-                <Alerta mensagem={mensagemAlerta} onClose={() => setMensagemAlerta("")} />
+                <Alerta
+                    mensagem={mensagemAlerta}
+                    onClose={handleFecharAlerta}
+                />
             )}
         </>
     );

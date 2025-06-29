@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Alerta from "../Site/Alerta";
 
 const HistoricoEmprestimos = ({ isOpen, onClose }) => {
     const [emprestimos, setEmprestimos] = useState([]);
@@ -7,6 +8,7 @@ const HistoricoEmprestimos = ({ isOpen, onClose }) => {
     const [modoDevolucao, setModoDevolucao] = useState(false);
     const [selecionados, setSelecionados] = useState([]);
     const [filtroStatus, setFiltroStatus] = useState("todos");
+    const [mensagemAlerta, setMensagemAlerta] = useState("");
 
     const hojeStr = new Date().toISOString().split("T")[0];
 
@@ -61,7 +63,7 @@ const HistoricoEmprestimos = ({ isOpen, onClose }) => {
             filtrarPorData(dataFiltro); // aplica filtro inicial
         } catch (err) {
             console.error("Erro ao buscar empréstimos:", err);
-            alert("Erro ao carregar dados");
+            setMensagemAlerta("Erro ao carregar dados.");
         }
     };
 
@@ -70,7 +72,6 @@ const HistoricoEmprestimos = ({ isOpen, onClose }) => {
         fetchDados();
     }, [isOpen]);
 
-    // reaplica o filtro quando o status muda
     useEffect(() => {
         filtrarPorData(dataFiltro);
     }, [filtroStatus]);
@@ -83,12 +84,11 @@ const HistoricoEmprestimos = ({ isOpen, onClose }) => {
         for (const id of selecionados) {
             try {
                 await fetch(`http://192.168.100.97:8080/emprestimos/devolver/${id}`, { method: "PUT" });
-                await fetch(`http://192.168.100.97:8080/emprestimos/devolver/${id}`, { method: "PUT" });
             } catch (err) {
                 console.error(`Erro ao devolver empréstimo ${id}`, err);
             }
         }
-        alert("Empréstimos finalizados com sucesso!");
+        setMensagemAlerta("Empréstimos finalizados com sucesso!");
         setSelecionados([]);
         setModoDevolucao(false);
         await fetchDados();
@@ -97,67 +97,77 @@ const HistoricoEmprestimos = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
 
     return (
-        <div className="modal-overlay">
-            <div className="modal-box">
-                <h2>Histórico de Empréstimos</h2>
+        <>
+            <div className="modal-overlay">
+                <div className="modal-box">
+                    <h2>Histórico de Empréstimos</h2>
 
-                <div style={{ marginBottom: "10px", display: "flex", gap: "10px", flexWrap: "wrap", alignItems: "center" }}>
-                    <button onClick={() => filtrarPorData(hojeStr)}>Hoje</button>
-                    <input
-                        type="date"
-                        value={dataFiltro}
-                        onChange={(e) => {
-                            setDataFiltro(e.target.value);
-                            filtrarPorData(e.target.value);
-                        }}
-                    />
-                    <button onClick={() => setModoDevolucao(!modoDevolucao)}>
-                        Terminar Empréstimo
-                    </button>
-                    <button
-                        onClick={() => setFiltroStatus("ativos")}
-                        style={{ backgroundColor: filtroStatus === "ativos" ? "#ddd" : "" }}
-                    >
-                        Ativos
-                    </button>
-                    <button
-                        onClick={() => setFiltroStatus("encerrados")}
-                        style={{ backgroundColor: filtroStatus === "encerrados" ? "#ddd" : "" }}
-                    >
-                        Encerrados
-                    </button>
+                    <div style={{ marginBottom: "10px", display: "flex", gap: "10px", flexWrap: "wrap", alignItems: "center" }}>
+                        <button onClick={() => filtrarPorData(hojeStr)}>Hoje</button>
+                        <input
+                            type="date"
+                            value={dataFiltro}
+                            onChange={(e) => {
+                                setDataFiltro(e.target.value);
+                                filtrarPorData(e.target.value);
+                            }}
+                        />
+                        <button onClick={() => setModoDevolucao(!modoDevolucao)}>Terminar Empréstimo</button>
+                        <button
+                            onClick={() => setFiltroStatus("ativos")}
+                            style={{ backgroundColor: filtroStatus === "ativos" ? "#ddd" : "" }}
+                        >
+                            Ativos
+                        </button>
+                        <button
+                            onClick={() => setFiltroStatus("encerrados")}
+                            style={{ backgroundColor: filtroStatus === "encerrados" ? "#ddd" : "" }}
+                        >
+                            Encerrados
+                        </button>
+                    </div>
+
+                    <ul style={{ maxHeight: "300px", overflowY: "auto" }}>
+                        {emprestimos.map((emp) => (
+                            <li key={emp.id} style={{ marginBottom: "15px" }}>
+                                {modoDevolucao && !emp.dataDevolucao && (
+                                    <input
+                                        type="checkbox"
+                                        checked={selecionados.includes(emp.id)}
+                                        onChange={() => alternarSelecionado(emp.id)}
+                                        style={{ marginRight: "8px" }}
+                                    />
+                                )}
+                                <p><strong>ID:</strong> {emp.id}</p>
+                                <p><strong>Funcionário:</strong> {emp.professorNome} ({emp.professorRfid})</p>
+                                <p><strong>Produto:</strong> {emp.itemNome}</p>
+                                <p><strong>Sala:</strong> {emp.itemSala}</p>
+                                <p><strong>Prédio:</strong> {emp.itemPredio}</p>
+                                <p><strong>Data Empréstimo:</strong> {new Date(emp.dataEmprestimo).toLocaleString()}</p>
+                                <p><strong>Devolução:</strong> {emp.dataDevolucao ? new Date(emp.dataDevolucao).toLocaleString() : "Em aberto"}</p>
+                                <hr />
+                            </li>
+                        ))}
+                    </ul>
+
+                    {modoDevolucao && selecionados.length > 0 && (
+                        <button onClick={finalizarSelecionados} style={{ marginTop: "10px" }}>
+                            Finalizar Selecionados
+                        </button>
+                    )}
+
+                    <button onClick={onClose} style={{ marginTop: "10px" }}>Fechar</button>
                 </div>
-
-                <ul style={{ maxHeight: "300px", overflowY: "auto" }}>
-                    {emprestimos.map((emp) => (
-                        <li key={emp.id} style={{ marginBottom: "15px" }}>
-                            {modoDevolucao && !emp.dataDevolucao && (
-                                <input
-                                    type="checkbox"
-                                    checked={selecionados.includes(emp.id)}
-                                    onChange={() => alternarSelecionado(emp.id)}
-                                    style={{ marginRight: "8px" }}
-                                />
-                            )}
-                            <p><strong>ID:</strong> {emp.id}</p>
-                            <p><strong>Funcionário:</strong> {emp.professorNome} ({emp.professorRfid})</p>
-                            <p><strong>Produto:</strong> {emp.itemNome}</p>
-                            <p><strong>Sala:</strong> {emp.itemSala}</p>
-                            <p><strong>Prédio:</strong> {emp.itemPredio}</p>
-                            <p><strong>Data Empréstimo:</strong> {new Date(emp.dataEmprestimo).toLocaleString()}</p>
-                            <p><strong>Devolução:</strong> {emp.dataDevolucao ? new Date(emp.dataDevolucao).toLocaleString() : "Em aberto"}</p>
-                            <hr />
-                        </li>
-                    ))}
-                </ul>
-
-                {modoDevolucao && selecionados.length > 0 && (
-                    <button onClick={finalizarSelecionados} style={{ marginTop: "10px" }}>Finalizar Selecionados</button>
-                )}
-
-                <button onClick={onClose} style={{ marginTop: "10px" }}>Fechar</button>
             </div>
-        </div>
+
+            {/* Alerta personalizado */}
+            {mensagemAlerta && (
+                <Alerta
+                    mensagem={mensagemAlerta}
+                    onClose={() => setMensagemAlerta("")}
+                />
+            )}
+        </>
     );
 };
 
