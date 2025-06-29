@@ -44,7 +44,7 @@ O projeto tem como objetivo facilitar a rotina do porteiro da faculdade, permiti
 
 A seguir, uma descrição de cada diagrama disponível.
 
-### 1. Modelo de Domínio (`Modelo de Domínio.png`)
+### 1. Modelo de Domínio (`[Modelo de Domínio.png](https://github.com/Iago-Vargas/Portaria_UFN/blob/main/Diagramas/Modelo%20de%20Dom%C3%ADnio.png)`)
 - **Tipo:** Diagrama de Classes
 - **Descrição:** Representa as principais entidades de negócio do sistema (`Usuario`, `Item`, `Emprestimo`, etc.) e os relacionamentos entre elas. Serve como a base para a estrutura de dados e a lógica de negócio.
 
